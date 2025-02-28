@@ -261,3 +261,43 @@ window.addEventListener('resize',function(){
 document.addEventListener('DOMContentLoaded', function() {
     setupColorControls();
 });
+
+document.addEventListener('contextmenu', event => {
+    event.preventDefault();
+    showMessage("Intrusion detected. We see you.");
+});
+
+document.addEventListener('keydown', event => {
+    if (
+        event.ctrlKey && (event.key === 'u' || event.key === 's') ||  
+        event.key === 'F12' ||  
+        (event.ctrlKey && event.shiftKey && event.key === 'I')
+    ) {
+        event.preventDefault();
+        showMessage("Intrusion detected. We see you. Don't be a hero. - DedSec");
+    }
+});
+
+function showMessage(text) {
+    let msgBox = document.createElement('div');
+    msgBox.innerText = text;
+    msgBox.style.position = 'fixed';
+    msgBox.style.top = '10px';
+    msgBox.style.left = '50%';
+    msgBox.style.transform = 'translateX(-50%)';
+    msgBox.style.background = 'rgba(0, 0, 0, 0.9)';
+    msgBox.style.color = '#a100ff';
+    msgBox.style.padding = '12px 24px';
+    msgBox.style.borderRadius = '10px';
+    msgBox.style.fontFamily = 'monospace';
+    msgBox.style.fontSize = '16px';
+    msgBox.style.boxShadow = '0 0 12px #a100ff';
+    msgBox.style.textAlign = 'center';
+    msgBox.style.zIndex = '9999';
+
+    document.body.appendChild(msgBox);
+
+    setTimeout(() => {
+        msgBox.remove();
+    }, 4000); 
+}
